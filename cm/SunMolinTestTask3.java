@@ -457,7 +457,6 @@ public class SunMolinTestTask3 {
         Rate rate = new Rate(kind, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
     }
 
-        // calculate test cases for VISITOR
         CarParkKind kind1 = CarParkKind.VISITOR;
         CarParkKind kind2 = CarParkKind.MANAGEMENT;
         CarParkKind kind3 = CarParkKind.STUDENT;
@@ -642,6 +641,146 @@ public class SunMolinTestTask3 {
         rate_visitor.calculate(new Period(23, 25));
     }
 
+    @org.junit.Test
+    public void ManagementCalculateTest1() throws IllegalArgumentException {
+        // Partition tested: 0 <= startHour <= 24
+
+        assertEquals(new BigDecimal(20), rate_management.calculate(new Period(8, 12)));
+
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest2() throws IllegalArgumentException {
+        // Partition tested: startHour < 0
+        rate_management.calculate(new Period(-1, 12));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest3() throws IllegalArgumentException {
+        // Partition tested: startHour > 24
+        rate_management.calculate(new Period(25, 12));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest4() throws IllegalArgumentException {
+        // Partition tested: 0 <= startHour <= 24
+
+        assertEquals(new BigDecimal(10), rate_management.calculate(new Period(10, 12)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest5() throws IllegalArgumentException {
+        // Partition tested: startHour > endHour
+        rate_management.calculate(new Period(13, 12));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest6() throws IllegalArgumentException {
+        // Partition tested: 0 <= endHour <= 24
+
+        assertEquals(new BigDecimal(15), rate_management.calculate(new Period(9, 12)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest7() throws IllegalArgumentException {
+        // Partition tested: endHour < 0
+        rate_management.calculate(new Period(9, -1));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest8() throws IllegalArgumentException {
+        // Partition tested: endHour >24
+        rate_management.calculate(new Period(9, 25));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest9() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+        rate_management.calculate(new Period(-1, 9));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest110() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+
+        assertEquals(new BigDecimal(19), rate_management.calculate(new Period(0, 9)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest111() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+
+        assertEquals(new BigDecimal(17), rate_management.calculate(new Period(1, 9)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest12() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+        /**
+         * For original specification, the driver need to pay 2.00
+         * But For management, the minimum payable is 3.00
+         * So the driver need to pay 3.00
+         */
+        assertEquals(new BigDecimal(3), rate_management.calculate(new Period(23, 24)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest13() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+        rate_management.calculate(new Period(24, 24));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest14() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+        rate_management.calculate(new Period(25, 24));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest15() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+        rate_management.calculate(new Period(0, -1));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest16() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+        rate_management.calculate(new Period(0, 0));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest17() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+        /**
+         * For original specification, the driver need to pay 2.00
+         * But For management, the minimum payable is 3.00
+         * So the driver need to pay 3.00
+         */
+        assertEquals(new BigDecimal(3), rate_management.calculate(new Period(0, 1)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest18() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        rate_management.calculate(new Period(23, 23));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest19() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        /**
+         * For original specification, the driver need to pay 2.00
+         * But For management, the minimum payable is 3.00
+         * So the driver need to pay 3.00
+         */
+        assertEquals(new BigDecimal(3), rate_management.calculate(new Period(23, 24)));
+    }
+
+    @org.junit.Test
+    public void ManagementCalculateTest20() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        rate_management.calculate(new Period(23, 25));
+    }
 }
 
 
