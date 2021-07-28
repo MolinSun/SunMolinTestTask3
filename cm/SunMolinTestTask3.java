@@ -458,7 +458,10 @@ public class SunMolinTestTask3 {
     }
 
         // calculate test cases for VISITOR
-        CarParkKind kind = CarParkKind.VISITOR;
+        CarParkKind kind1 = CarParkKind.VISITOR;
+        CarParkKind kind2 = CarParkKind.MANAGEMENT;
+        CarParkKind kind3 = CarParkKind.STUDENT;
+        CarParkKind kind4 = CarParkKind.STAFF;
         BigDecimal hourlyNormalRate = BigDecimal.valueOf(5);
         BigDecimal hourlyReducedRate = BigDecimal.valueOf(2);
 
@@ -470,9 +473,10 @@ public class SunMolinTestTask3 {
         ArrayList<Period> reducedPeriods = new ArrayList<Period>(Arrays.asList(period1, period2));
         ArrayList<Period> normalPeriods = new ArrayList<Period>(Arrays.asList(period3, period4));
 
-        Rate rate_visitor = new Rate(kind, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
-
-
+        Rate rate_visitor = new Rate(kind1, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
+        Rate rate_management = new Rate(kind2, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
+        Rate rate_student = new Rate(kind3, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
+        Rate rate_staff = new Rate(kind4, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
 
     @org.junit.Test
     public void VisitorCalculateTest1() throws IllegalArgumentException {
@@ -531,25 +535,25 @@ public class SunMolinTestTask3 {
     }
 
     @org.junit.Test
-    public void calculateTest7() throws IllegalArgumentException {
+    public void VisitorCalculateTest7() throws IllegalArgumentException {
         // Partition tested: endHour < 0
         rate_visitor.calculate(new Period(9, -1));
     }
 
     @org.junit.Test
-    public void calculateTest8() throws IllegalArgumentException {
+    public void VisitorCalculateTest8() throws IllegalArgumentException {
         // Partition tested: endHour >24
         rate_visitor.calculate(new Period(9, 25));
     }
 
     @org.junit.Test
-    public void calculateTest9() throws IllegalArgumentException {
+    public void VisitorCalculateTest9() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
         rate_visitor.calculate(new Period(-1, 9));
     }
 
     @org.junit.Test
-    public void calculateTest10() throws IllegalArgumentException {
+    public void VisitorCalculateTest10() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
         /**
          *Assume that  the total payment is 19
@@ -561,7 +565,7 @@ public class SunMolinTestTask3 {
     }
 
     @org.junit.Test
-    public void calculateTest11() throws IllegalArgumentException {
+    public void VisitorCalculateTest11() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
         /**
          *Assume that  the total payment is 17
@@ -573,7 +577,7 @@ public class SunMolinTestTask3 {
     }
 
     @org.junit.Test
-    public void calculateTest12() throws IllegalArgumentException {
+    public void VisitorCalculateTest12() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
         /**
          *Assume that  the total payment is 2
@@ -583,60 +587,61 @@ public class SunMolinTestTask3 {
     }
 
     @org.junit.Test
-    public void calculateTest13() throws IllegalArgumentException {
+    public void VisitorCalculateTest13() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
         rate_visitor.calculate(new Period(24, 24));
     }
 
     @org.junit.Test
-    public void calculateTest14() throws IllegalArgumentException {
+    public void VisitorCalculateTest14() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
         rate_visitor.calculate(new Period(25, 24));
     }
 
     @org.junit.Test
-    public void calculateTest15() throws IllegalArgumentException {
+    public void VisitorCalculateTest15() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
         rate_visitor.calculate(new Period(0, -1));
     }
 
     @org.junit.Test
-    public void calculateTest16() throws IllegalArgumentException {
+    public void VisitorCalculateTest16() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
         rate_visitor.calculate(new Period(0, 0));
     }
 
     @org.junit.Test
-    public void calculateTest17() throws IllegalArgumentException {
+    public void VisitorCalculateTest17() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
         /**
          *Assume that  the total payment is 2
          * First 8.00 is free. So the driver don't need to pay
          */
-        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(0, 1)));
+        assertEquals(new BigDecimal(0), rate_visitor.calculate(new Period(0, 1)));
     }
 
     @org.junit.Test
-    public void calculateTest18() throws IllegalArgumentException {
+    public void VisitorCalculateTest18() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
         rate_visitor.calculate(new Period(23, 23));
     }
 
     @org.junit.Test
-    public void calculateTest19() throws IllegalArgumentException {
+    public void VisitorCalculateTest19() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
         /**
          *Assume that  the total payment is 2
          * First 8.00 is free. So the driver don't need to pay
          */
-        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(23, 24)));
+        assertEquals(new BigDecimal(0), rate_visitor.calculate(new Period(23, 24)));
     }
 
     @org.junit.Test
-    public void calculateTest20() throws IllegalArgumentException {
+    public void VisitorCalculateTest20() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
         rate_visitor.calculate(new Period(23, 25));
     }
+
 }
 
 
