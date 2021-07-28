@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class SunMolinTestTask2 {
+public class SunMolinTestTask3 {
 
     @org.junit.Test
     public void RateTest1() throws IllegalArgumentException {
@@ -457,139 +457,185 @@ public class SunMolinTestTask2 {
         Rate rate = new Rate(kind, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
     }
 
-    CarParkKind kind = CarParkKind.STUDENT;
-    BigDecimal hourlyNormalRate = BigDecimal.valueOf(5);
-    BigDecimal hourlyReducedRate = BigDecimal.valueOf(2);
+        // calculate test cases for VISITOR
+        CarParkKind kind = CarParkKind.VISITOR;
+        BigDecimal hourlyNormalRate = BigDecimal.valueOf(5);
+        BigDecimal hourlyReducedRate = BigDecimal.valueOf(2);
 
-    Period period1 = new Period(0, 7);
-    Period period2 = new Period(19, 24);
-    Period period3 = new Period(8, 12);
-    Period period4 = new Period(15, 18);
+        Period period1 = new Period(0, 7);
+        Period period2 = new Period(19, 24);
+        Period period3 = new Period(8, 12);
+        Period period4 = new Period(15, 18);
 
-    ArrayList<Period> reducedPeriods = new ArrayList<Period>(Arrays.asList(period1, period2));
-    ArrayList<Period> normalPeriods = new ArrayList<Period>(Arrays.asList(period3, period4));
+        ArrayList<Period> reducedPeriods = new ArrayList<Period>(Arrays.asList(period1, period2));
+        ArrayList<Period> normalPeriods = new ArrayList<Period>(Arrays.asList(period3, period4));
 
-    Rate assumeRate = new Rate(kind, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
+        Rate rate_visitor = new Rate(kind, hourlyNormalRate, hourlyReducedRate, reducedPeriods, normalPeriods);
+
 
 
     @org.junit.Test
-    public void calculateTest1() throws IllegalArgumentException {
+    public void VisitorCalculateTest1() throws IllegalArgumentException {
         // Partition tested: 0 <= startHour <= 24
-        assertEquals(new BigDecimal(20), assumeRate.calculate(new Period(8, 12)));
+        /**
+         * Assume that the total payment is 20.00
+         * First 8.00 is free. So 20.00 - 8.00 = 12.00
+         * And 50% reduction above 8.00. So 12.00 * 50% = 6.00
+         * Finally need to pay 6.00
+        */
+
+        //assertEquals(new BigDecimal(20), rate_visitor.calculate(new Period(8, 12)));
+        assertEquals(new BigDecimal(6), rate_visitor.calculate(new Period(8, 12)));
     }
 
     @org.junit.Test
-    public void calculateTest2() throws IllegalArgumentException {
+    public void VisitorCalculateTest2() throws IllegalArgumentException {
         // Partition tested: startHour < 0
-        assumeRate.calculate(new Period(-1, 12));
+        rate_visitor.calculate(new Period(-1, 12));
     }
 
     @org.junit.Test
-    public void calculateTest3() throws IllegalArgumentException {
+    public void VisitorCalculateTest3() throws IllegalArgumentException {
         // Partition tested: startHour > 24
-        assumeRate.calculate(new Period(25, 12));
+        rate_visitor.calculate(new Period(25, 12));
     }
 
     @org.junit.Test
-    public void calculateTest4() throws IllegalArgumentException {
+    public void VisitorCalculateTest4() throws IllegalArgumentException {
         // Partition tested: 0 <= startHour <= 24
-        assertEquals(new BigDecimal(10), assumeRate.calculate(new Period(10, 12)));
+        /**
+         *Assume that  the total payment is 10
+         * First 8.00 is free. So 10.00 - 8.00 = 2.00
+         * And 50% reduction above 8.00. So 2.00 * 50% = 1.00
+         * Finally need to pay 1.00
+        */
+         assertEquals(new BigDecimal(1), rate_visitor.calculate(new Period(10, 12)));
     }
 
     @org.junit.Test
-    public void calculateTest5() throws IllegalArgumentException {
+    public void VisitorCalculateTest5() throws IllegalArgumentException {
         // Partition tested: startHour > endHour
-        assumeRate.calculate(new Period(13, 12));
+        rate_visitor.calculate(new Period(13, 12));
     }
 
     @org.junit.Test
-    public void calculateTest6() throws IllegalArgumentException {
+    public void VisitorCalculateTest6() throws IllegalArgumentException {
         // Partition tested: 0 <= endHour <= 24
-        assertEquals(new BigDecimal(15), assumeRate.calculate(new Period(9, 12)));
+        /**
+         *Assume that  the total payment is 15.00
+         * First 8.00 is free. So 15.00 - 8.00 = 7.00
+         * And 50% reduction above 8.00. So 7.00 * 50% = 3.50
+         * Finally need to pay 3.50
+         */
+        assertEquals(new BigDecimal(3.5), rate_visitor.calculate(new Period(9, 12)));
     }
 
     @org.junit.Test
     public void calculateTest7() throws IllegalArgumentException {
         // Partition tested: endHour < 0
-        assumeRate.calculate(new Period(9, -1));
+        rate_visitor.calculate(new Period(9, -1));
     }
 
     @org.junit.Test
     public void calculateTest8() throws IllegalArgumentException {
         // Partition tested: endHour >24
-        assumeRate.calculate(new Period(9, 25));
+        rate_visitor.calculate(new Period(9, 25));
     }
 
     @org.junit.Test
     public void calculateTest9() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
-        assumeRate.calculate(new Period(-1, 9));
+        rate_visitor.calculate(new Period(-1, 9));
     }
 
     @org.junit.Test
     public void calculateTest10() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
-        assertEquals(new BigDecimal(19), assumeRate.calculate(new Period(0, 9)));
+        /**
+         *Assume that  the total payment is 19
+         * First 8.00 is free. So 19.00 - 8.00 = 11.00
+         * And 50% reduction above 8.00. So 11.00 * 50% = 5.50
+         * Finally need to pay 5.50
+         */
+        assertEquals(new BigDecimal(5.50), rate_visitor.calculate(new Period(0, 9)));
     }
 
     @org.junit.Test
     public void calculateTest11() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
-        assertEquals(new BigDecimal(17), assumeRate.calculate(new Period(1, 9)));
+        /**
+         *Assume that  the total payment is 17
+         * First 8.00 is free. So 17.00 - 8.00 = 9.00
+         * And 50% reduction above 8.00. So 9.00 * 50% = 4.50
+         * Finally need to pay 4.50
+         */
+        assertEquals(new BigDecimal(4.5), rate_visitor.calculate(new Period(1, 9)));
     }
 
     @org.junit.Test
     public void calculateTest12() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
-        assertEquals(new BigDecimal(2), assumeRate.calculate(new Period(23, 24)));
+        /**
+         *Assume that  the total payment is 2
+         * First 8.00 is free. So the driver don't need to pay
+         */
+        assertEquals(new BigDecimal(0), rate_visitor.calculate(new Period(23, 24)));
     }
 
     @org.junit.Test
     public void calculateTest13() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
-        assumeRate.calculate(new Period(24, 24));
+        rate_visitor.calculate(new Period(24, 24));
     }
 
     @org.junit.Test
     public void calculateTest14() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
-        assumeRate.calculate(new Period(25, 24));
+        rate_visitor.calculate(new Period(25, 24));
     }
 
     @org.junit.Test
     public void calculateTest15() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
-        assumeRate.calculate(new Period(0, -1));
+        rate_visitor.calculate(new Period(0, -1));
     }
 
     @org.junit.Test
     public void calculateTest16() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
-        assumeRate.calculate(new Period(0, 0));
+        rate_visitor.calculate(new Period(0, 0));
     }
 
     @org.junit.Test
     public void calculateTest17() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
-        assertEquals(new BigDecimal(2), assumeRate.calculate(new Period(0, 1)));
+        /**
+         *Assume that  the total payment is 2
+         * First 8.00 is free. So the driver don't need to pay
+         */
+        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(0, 1)));
     }
 
     @org.junit.Test
     public void calculateTest18() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        assumeRate.calculate(new Period(23, 23));
+        rate_visitor.calculate(new Period(23, 23));
     }
 
     @org.junit.Test
     public void calculateTest19() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        assertEquals(new BigDecimal(2), assumeRate.calculate(new Period(23, 24)));
+        /**
+         *Assume that  the total payment is 2
+         * First 8.00 is free. So the driver don't need to pay
+         */
+        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(23, 24)));
     }
 
     @org.junit.Test
     public void calculateTest20() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        assumeRate.calculate(new Period(23, 25));
+        rate_visitor.calculate(new Period(23, 25));
     }
 }
 
