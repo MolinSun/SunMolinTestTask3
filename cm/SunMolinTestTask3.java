@@ -943,6 +943,147 @@ public class SunMolinTestTask3 {
         // Boundary tested(endHour): 24
         rate_student.calculate(new Period(23, 25));
     }
+
+    @org.junit.Test
+    public void StaffCalculateTest1() throws IllegalArgumentException {
+        // Partition tested: 0 <= startHour <= 24
+        /**
+         * Assume that the total payment is 20.00
+         * But for staff, maximum payable is 16.00 per day.
+         * Finally need to pay 16.00
+         */
+        assertEquals(new BigDecimal(16), rate_staff.calculate(new Period(8, 12)));
+
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest2() throws IllegalArgumentException {
+        // Partition tested: startHour < 0
+        rate_staff.calculate(new Period(-1, 12));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest3() throws IllegalArgumentException {
+        // Partition tested: startHour > 24
+        rate_staff.calculate(new Period(25, 12));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest4() throws IllegalArgumentException {
+        // Partition tested: 0 <= startHour <= 24
+
+        assertEquals(new BigDecimal(10), rate_staff.calculate(new Period(10, 12)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest5() throws IllegalArgumentException {
+        // Partition tested: startHour > endHour
+        rate_staff.calculate(new Period(13, 12));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest6() throws IllegalArgumentException {
+        // Partition tested: 0 <= endHour <= 24
+
+        assertEquals(new BigDecimal(15), rate_staff.calculate(new Period(9, 12)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest7() throws IllegalArgumentException {
+        // Partition tested: endHour < 0
+        rate_staff.calculate(new Period(9, -1));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest8() throws IllegalArgumentException {
+        // Partition tested: endHour >24
+        rate_staff.calculate(new Period(9, 25));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest9() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+        rate_staff.calculate(new Period(-1, 9));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest110() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+        /**
+         * Assume that the total payment is 19.00
+         * But for staff, maximum payable is 16.00 per day.
+         * Finally need to pay 16.00
+         */
+        assertEquals(new BigDecimal(16), rate_staff.calculate(new Period(0, 9)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest111() throws IllegalArgumentException {
+        // Boundary tested(startHour): 0
+        /**
+         * Assume that the total payment is 20.00
+         * But for staff, maximum payable is 16.00 per day.
+         * Finally need to pay 16.00
+         */
+        assertEquals(new BigDecimal(16), rate_staff.calculate(new Period(1, 9)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest12() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+
+        assertEquals(new BigDecimal(2), rate_staff.calculate(new Period(23, 24)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest13() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+        rate_staff.calculate(new Period(24, 24));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest14() throws IllegalArgumentException {
+        // Boundary tested(startHour): 24
+        rate_staff.calculate(new Period(25, 24));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest15() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+        rate_staff.calculate(new Period(0, -1));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest16() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+        rate_staff.calculate(new Period(0, 0));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest17() throws IllegalArgumentException {
+        // Boundary tested(endHour): 0
+
+        assertEquals(new BigDecimal(2), rate_staff.calculate(new Period(0, 1)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest18() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        rate_staff.calculate(new Period(23, 23));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest19() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        
+        assertEquals(new BigDecimal(2), rate_staff.calculate(new Period(23, 24)));
+    }
+
+    @org.junit.Test
+    public void StaffCalculateTest20() throws IllegalArgumentException {
+        // Boundary tested(endHour): 24
+        rate_staff.calculate(new Period(23, 25));
+    }
 }
 
 
