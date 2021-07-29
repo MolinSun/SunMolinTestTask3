@@ -94,15 +94,21 @@ public class Rate {
 
         BigDecimal total = (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+        Charge charge;
 
-        BigDecimal a = new BigDecimal(8);
-
-        if (total.compareTo(a) <= 0) {
-            return BigDecimal.ZERO;
-        }else {
-            return (total.subtract(a)).divide(new BigDecimal(2));
-
+        switch (this.kind){
+            case VISITOR:
+                charge = new Visitor();
+                break;
+            case MANAGEMENT:
+                charge = new Management();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.kind);
         }
+
+        return charge.Charge(total);
+
     }
 
 }
