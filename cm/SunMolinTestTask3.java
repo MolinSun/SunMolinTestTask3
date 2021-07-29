@@ -792,19 +792,19 @@ public class SunMolinTestTask3 {
          */
 
         //assertEquals(new BigDecimal(20), rate_visitor.calculate(new Period(8, 12)));
-        assertEquals(new BigDecimal(16.375), rate_visitor.calculate(new Period(8, 12)));
+        assertEquals(new BigDecimal(16.375), rate_student.calculate(new Period(8, 12)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest2() throws IllegalArgumentException {
         // Partition tested: startHour < 0
-        rate_visitor.calculate(new Period(-1, 12));
+        rate_student.calculate(new Period(-1, 12));
     }
 
     @org.junit.Test
     public void StudentCalculateTest3() throws IllegalArgumentException {
         // Partition tested: startHour > 24
-        rate_visitor.calculate(new Period(25, 12));
+        rate_student.calculate(new Period(25, 12));
     }
 
     @org.junit.Test
@@ -815,13 +815,13 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay (10.00 - 5.50) * 0.75 + 5.50 = 8.875
          */
-        assertEquals(new BigDecimal(8.875), rate_visitor.calculate(new Period(10, 12)));
+        assertEquals(new BigDecimal(8.875), rate_student.calculate(new Period(10, 12)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest5() throws IllegalArgumentException {
         // Partition tested: startHour > endHour
-        rate_visitor.calculate(new Period(13, 12));
+        rate_student.calculate(new Period(13, 12));
     }
 
     @org.junit.Test
@@ -832,25 +832,25 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay (15.00 - 5.50) * 0.75 + 5.50 = 12.625
          */
-        assertEquals(new BigDecimal(12.625), rate_visitor.calculate(new Period(9, 12)));
+        assertEquals(new BigDecimal(12.625), rate_student.calculate(new Period(9, 12)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest7() throws IllegalArgumentException {
         // Partition tested: endHour < 0
-        rate_visitor.calculate(new Period(9, -1));
+        rate_student.calculate(new Period(9, -1));
     }
 
     @org.junit.Test
     public void StudentCalculateTest8() throws IllegalArgumentException {
         // Partition tested: endHour >24
-        rate_visitor.calculate(new Period(9, 25));
+        rate_student.calculate(new Period(9, 25));
     }
 
     @org.junit.Test
     public void StudentCalculateTest9() throws IllegalArgumentException {
         // Boundary tested(startHour): 0
-        rate_visitor.calculate(new Period(-1, 9));
+        rate_student.calculate(new Period(-1, 9));
     }
 
     @org.junit.Test
@@ -861,7 +861,7 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay (19.00 - 5.50) * 0.75 + 5.50 = 15.625
          */
-        assertEquals(new BigDecimal(5.50), rate_visitor.calculate(new Period(0, 9)));
+        assertEquals(new BigDecimal(15.625), rate_student.calculate(new Period(0, 9)));
     }
 
     @org.junit.Test
@@ -872,7 +872,7 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay (17.00 - 5.50) * 0.75 + 5.50 = 14.125
          */
-        assertEquals(new BigDecimal(14.125), rate_visitor.calculate(new Period(1, 9)));
+        assertEquals(new BigDecimal(14.125), rate_student.calculate(new Period(1, 9)));
     }
 
     @org.junit.Test
@@ -883,31 +883,31 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay 2.00
          */
-        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(23, 24)));
+        assertEquals(new BigDecimal(2), rate_student.calculate(new Period(23, 24)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest13() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
-        rate_visitor.calculate(new Period(24, 24));
+        rate_student.calculate(new Period(24, 24));
     }
 
     @org.junit.Test
     public void StudentCalculateTest14() throws IllegalArgumentException {
         // Boundary tested(startHour): 24
-        rate_visitor.calculate(new Period(25, 24));
+        rate_student.calculate(new Period(25, 24));
     }
 
     @org.junit.Test
     public void StudentCalculateTest15() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
-        rate_visitor.calculate(new Period(0, -1));
+        rate_student.calculate(new Period(0, -1));
     }
 
     @org.junit.Test
     public void StudentCalculateTest16() throws IllegalArgumentException {
         // Boundary tested(endHour): 0
-        rate_visitor.calculate(new Period(0, 0));
+        rate_student.calculate(new Period(0, 0));
     }
 
     @org.junit.Test
@@ -918,13 +918,13 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay 2.00
          */
-        assertEquals(new BigDecimal(2), rate_visitor.calculate(new Period(0, 1)));
+        assertEquals(new BigDecimal(2), rate_student.calculate(new Period(0, 1)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest18() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        rate_visitor.calculate(new Period(23, 23));
+        rate_student.calculate(new Period(23, 23));
     }
 
     @org.junit.Test
@@ -935,13 +935,13 @@ public class SunMolinTestTask3 {
          * 25% reduction on any amount above 5.50.
          * Finally need to pay 2.00
          */
-        assertEquals(new BigDecimal(0), rate_visitor.calculate(new Period(23, 24)));
+        assertEquals(new BigDecimal(2.00), rate_student.calculate(new Period(23, 24)));
     }
 
     @org.junit.Test
     public void StudentCalculateTest20() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        rate_visitor.calculate(new Period(23, 25));
+        rate_student.calculate(new Period(23, 25));
     }
 }
 
