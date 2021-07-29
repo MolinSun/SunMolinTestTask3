@@ -106,6 +106,9 @@ public class Rate {
             case STUDENT:
                 charge = new Student();
                 break;
+            case STAFF:
+                charge = new Staff();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + this.kind);
         }

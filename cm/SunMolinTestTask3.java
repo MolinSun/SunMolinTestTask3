@@ -1075,7 +1075,7 @@ public class SunMolinTestTask3 {
     @org.junit.Test
     public void StaffCalculateTest19() throws IllegalArgumentException {
         // Boundary tested(endHour): 24
-        
+
         assertEquals(new BigDecimal(2), rate_staff.calculate(new Period(23, 24)));
     }
 
