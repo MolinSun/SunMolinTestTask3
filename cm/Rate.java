@@ -96,25 +96,16 @@ public class Rate {
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
         Charge charge;
 
-        switch (this.kind){
-            case VISITOR:
-                charge = new Visitor();
-                break;
-            case MANAGEMENT:
-                charge = new Management();
-                break;
-            case STUDENT:
-                charge = new Student();
-                break;
-            case STAFF:
-                charge = new Staff();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.kind);
+        if(this.kind == CarParkKind.VISITOR){
+            charge = new Visitor();
+        }else if(this.kind == CarParkKind.MANAGEMENT){
+            charge = new Management();
+        }else if(this.kind == CarParkKind.STUDENT){
+            charge = new Student();
+        }else{
+            charge = new Staff();
         }
 
         return charge.Charge(total);
-
     }
-
 }
